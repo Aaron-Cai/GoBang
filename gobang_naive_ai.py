@@ -39,13 +39,14 @@ class Gobang_Ai:
         self.opp_winning_cnt = [0] * len(self.winning_array)
 
     def ai_move(self, current_board, last_r, last_c):
+        # todo fix bug
         # analyze board situation
         if last_r == -1 and last_c == -1:
             return int(self.height/2), int(self.width/2), None, None
         for k in range(len(self.winning_array)):
             if self.winning_array[k][last_r][last_c]:
-                self.opp_winning_cnt[k]+=1
-                self.my_winning_cnt[k]=0
+                self.opp_winning_cnt[k] += 1
+                self.my_winning_cnt[k] = 0
         # find a best move
         my_score = [[0] * self.width for i in [0] * self.height]
         opp_score = [[0] * self.width for i in [0] * self.height]
@@ -58,48 +59,52 @@ class Gobang_Ai:
                 if current_board[row][col] == Piece_Empty:
                     for k in range(len(self.winning_array)):
                         if self.winning_array[k][row][col]:
-                            my_score[row][col] += my_score_get[self.my_winning_cnt[k]]
                             opp_score[row][col] += opp_score_get[self.opp_winning_cnt[k]]
+                            my_score[row][col] += my_score_get[self.my_winning_cnt[k]]
                     if opp_score[row][col] > max_score:
                         max_score = opp_score[row][col]
                         u, v = row, col
                     elif opp_score[row][col] == max_score:
-                        if my_score[row][col] > opp_score[u][v]:
+                        if my_score[row][col] > my_score[u][v]:
                             u, v = row, col
                     if my_score[row][col] > max_score:
                         max_score = my_score[row][col]
                         u, v = row, col
                     elif my_score[row][col] == max_score:
-                        if opp_score[row][col] > my_score[u][v]:
+                        if opp_score[row][col] > opp_score[u][v]:
                             u, v = row, col
+        for k in range(len(self.winning_array)):
+            if self.winning_array[k][u][v]:
+                self.my_winning_cnt[k] += 1
+                self.opp_winning_cnt[k] = 0
         return u, v, my_score, opp_score
 
 def main():
     game = GoBangLogic()
     game.start_a_game()
     ai = Gobang_Ai()
-    # ai_black = Gobang_Ai()
-    # ai_white = Gobang_Ai()
-    # u, v = -1, -1
-    # while game.status != Black_Win and game.status != White_Win:
-    #     u, v, _, _ = ai_black.ai_move(game.board, u, v)
-    #     game.move_a_piece(u, v)
-    #     u, v, _, _ = ai_white.ai_move(game.board, u, v)
-    #     game.move_a_piece(u, v)
+    ai_black = Gobang_Ai()
+    ai_white = Gobang_Ai()
+    u, v = -1, -1
+    while game.status != Black_Win and game.status != White_Win:
+        u, v, _, _ = ai_black.ai_move(game.board, u, v)
+        game.move_a_piece(u, v)
+        u, v, _, _ = ai_white.ai_move(game.board, u, v)
+        game.move_a_piece(u, v)
 
-    game.move_a_piece(7, 7)
-    u, v ,ai_score, player_score = ai.ai_move(game.board, 7, 7)
-    utility.display_board_score(ai_score, 15, 15)
-    utility.display_board_score(player_score, 15, 15)
-    game.move_a_piece(u, v)
-    print('====================================================\n')
-
-    game.move_a_piece(6, 7)
-    u, v, ai_score, player_score = ai.ai_move(game.board, 6, 7)
-    utility.display_board_score(ai_score, 15, 15)
-    utility.display_board_score(player_score, 15, 15)
-    game.move_a_piece(u, v)
-    print('====================================================\n')
+    # game.move_a_piece(7, 7)
+    # u, v ,ai_score, player_score = ai.ai_move(game.board, 7, 7)
+    # utility.display_board_score(ai_score, 15, 15)
+    # utility.display_board_score(player_score, 15, 15)
+    # game.move_a_piece(u, v)
+    # print('====================================================\n')
+    #
+    # game.move_a_piece(6, 7)
+    # u, v, ai_score, player_score = ai.ai_move(game.board, 6, 7)
+    # utility.display_board_score(ai_score, 15, 15)
+    # utility.display_board_score(player_score, 15, 15)
+    # game.move_a_piece(u, v)
+    # print('====================================================\n')
 
 
 

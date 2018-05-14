@@ -17,7 +17,6 @@ class GameBoard(QWidget):
         self.game.start_a_game()
 
     def paintEvent(self, QPaintEvent):
-        print('repaint')
         painter = QtGui.QPainter(self)
         self.drawBackground(painter)
         self.drawBoard(painter)
@@ -53,6 +52,7 @@ class GameBoard(QWidget):
                     painter.setBrush(QtGui.QBrush(QtGui.QColor(255, 255, 255)))
                 painter.setPen(QtGui.QPen(QtGui.QColor(0, 0, 0, 0)))
                 painter.drawEllipse((col+0.5) * self.step, (row+0.5) * self.step, self.step, self.step)
+        # TODO Draw score on Ui
 
     def mousePressEvent(self, QMouseEvent):
         x = QMouseEvent.x()
