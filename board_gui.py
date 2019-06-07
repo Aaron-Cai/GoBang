@@ -15,6 +15,8 @@ class GameBoard(QWidget):
         self.game = GoBangLogic()
         self.ai = Gobang_Ai()
         self.game.start_a_game()
+        u, v, ai_score, player_score = self.ai.ai_move(self.game.board, -1, -1)
+        self.game.move_a_piece(u, v)
 
     def paintEvent(self, QPaintEvent):
         painter = QtGui.QPainter(self)

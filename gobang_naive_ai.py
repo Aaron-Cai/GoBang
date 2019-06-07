@@ -50,7 +50,7 @@ class Gobang_Ai:
         # find a best move
         my_score = [[0] * self.width for i in [0] * self.height]
         opp_score = [[0] * self.width for i in [0] * self.height]
-        my_score_get = [0, 220, 420, 2100, 20000]
+        my_score_get = [0, 220, 500, 2100, 20000]
         opp_score_get = [0, 200, 400, 2000, 10000]
         max_score = 0
         u, v = -1, -1
