@@ -4,6 +4,7 @@ from PyQt5 import QtGui
 from game_logic import *
 from gobang_naive_ai import *
 
+
 class GameBoard(QWidget):
     def __init__(self, board_size=15):
         super().__init__()
@@ -12,8 +13,8 @@ class GameBoard(QWidget):
         self.setWindowTitle(self.title)
         self.board_size = board_size
         self.step = min(self.height(), self.width()) / (self.board_size+1)
-        self.game = GoBangLogic()
-        self.ai = Gobang_Ai()
+        self.game = GoBangLogic(width=board_size, height=board_size)
+        self.ai = GobangAi()
         self.game.start_a_game()
         u, v, ai_score, player_score = self.ai.ai_move(self.game.board, -1, -1)
         self.game.move_a_piece(u, v)
@@ -27,7 +28,7 @@ class GameBoard(QWidget):
         key = chr(keyPressEvent.key())
         if key=='r' or key=='R':
             self.game = GoBangLogic()
-            self.ai = Gobang_Ai()
+            self.ai = GobangAi()
             self.game.start_a_game()
             self.update()
 
@@ -43,7 +44,6 @@ class GameBoard(QWidget):
             painter.drawText((i+1)*self.step-5, self.step-5, str(i+1))
             painter.drawText(self.step-10, (i+1)*self.step+5, chr(ord('A')+i))
 
-        board = self.game.board
         for row, eles in enumerate(self.game.board):
             for col, ele in enumerate(eles):
                 if ele == Piece_Empty:
@@ -66,6 +66,7 @@ class GameBoard(QWidget):
             u, v, ai_score, player_score = self.ai.ai_move(self.game.board, row, col)
             self.game.move_a_piece(u, v)
             self.update()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

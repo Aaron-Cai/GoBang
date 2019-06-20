@@ -1,6 +1,8 @@
 from global_constans import *
 import logging
 import utility
+
+
 class GoBangLogic:
     def __init__(self, width=15, height=15):
         '''
@@ -16,7 +18,6 @@ class GoBangLogic:
 
         self.logicLogger = self.setup_logger('LogicLogger', 'log.log')
         self.moveLogger = self.setup_logger('moveLogger', 'move.log', fmt='%(message)s')
-        self.logicLogger.disabled = True
         self.logicLogger.disabled = True
 
     def setup_logger(self, logger_name, log_file, fmt='%(asctime)s %(name)s %(levelname)s: %(message)s', level=logging.INFO):
@@ -121,6 +122,7 @@ class GoBangLogic:
             self.logicLogger.error('Invalid place to move a piece')
             raise Exception('Invalid place to move a piece.')
 
+
 def main():
     game = GoBangLogic()
     game.start_a_game()
@@ -163,6 +165,7 @@ def main():
     # game.move_a_piece(7, 3)
     # game.move_a_piece(11, 7)
     # game.move_a_piece(7, 2)
+
 
 if __name__ == '__main__':
     main()

@@ -1,12 +1,15 @@
 from global_constans import *
-from game_logic import GoBangLogic
 import utility
 
-class Gobang_Ai:
+
+class GobangAi:
     def __init__(self, choose=Piece_White, width=15, height=15):
         self.choose = choose
         self.width=width
         self.height=height
+        self.winning_array = []
+        self.my_winning_cnt = []
+        self.opp_winning_cnt = []
         self.init_winning_array()
 
     def init_winning_array(self):
@@ -79,12 +82,14 @@ class Gobang_Ai:
                 self.opp_winning_cnt[k] = 0
         return u, v, my_score, opp_score
 
+
 def main():
+    from game_logic import GoBangLogic
     game = GoBangLogic()
     game.start_a_game()
-    ai = Gobang_Ai()
-    ai_black = Gobang_Ai()
-    ai_white = Gobang_Ai()
+    ai = GobangAi()
+    ai_black = GobangAi()
+    ai_white = GobangAi()
     u, v = -1, -1
     while game.status != Black_Win and game.status != White_Win:
         u, v, _, _ = ai_black.ai_move(game.board, u, v)
@@ -105,9 +110,6 @@ def main():
     # utility.display_board_score(player_score, 15, 15)
     # game.move_a_piece(u, v)
     # print('====================================================\n')
-
-
-
 
 
 if __name__ == '__main__':
