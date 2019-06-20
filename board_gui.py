@@ -26,6 +26,7 @@ class GameBoard(QWidget):
 
     def paintEvent(self, QPaintEvent):
         painter = QtGui.QPainter(self)
+        painter.setRenderHint(QtGui.QPainter.Antialiasing, True)
         self.drawBackground(painter)
         self.drawBoard(painter)
 
@@ -43,7 +44,6 @@ class GameBoard(QWidget):
             self.score_display_toggle += 1
             self.score_display_toggle = self.score_display_toggle % 3
         self.update()
-
 
     def drawBackground(self, painter):
         painter.setBrush(QtGui.QBrush(QtGui.QColor(128, 128, 128)))
