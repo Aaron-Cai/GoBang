@@ -1,6 +1,8 @@
 from global_constans import *
 import logging
 import utility
+import os
+from datetime import datetime
 
 
 class GoBangLogic:
@@ -17,8 +19,10 @@ class GoBangLogic:
         self.movecnt = 0
 
         self.logicLogger = self.setup_logger('LogicLogger', 'log.log')
-        self.moveLogger = self.setup_logger('moveLogger', 'move.log', fmt='%(message)s')
         self.logicLogger.disabled = True
+
+        move_log = os.path.join('move_log', datetime.strftime(datetime.now(), '%Y%m%d_%H%M%S') + '.log')
+        self.moveLogger = self.setup_logger('moveLogger', move_log, fmt='%(message)s')
 
     def setup_logger(self, logger_name, log_file, fmt='%(asctime)s %(name)s %(levelname)s: %(message)s', level=logging.INFO):
         l = logging.getLogger(logger_name)
@@ -92,6 +96,7 @@ class GoBangLogic:
 
     def switch_turn(self):
         return (self.status+1) % 2
+
     def move_a_piece(self, row, col):
         if 0<=row and row < self.height and 0<=col and col < self.width:
             if self.status > White_Turn:
