@@ -39,14 +39,6 @@ class GoBangLogic:
 
     def display_board(self):
         utility.display_board(self.board, self.width, self.height)
-        # for i in range(self.width+1):
-        #     print(i, '\t', end='')
-        # print()
-        # for i in range(self.height):
-        #     print(i+1, '\t', end='')
-        #     for j in range(self.width):
-        #         print(Piece_String_Type[self.board[i][j]], '\t', end='')
-        #     print(flush=True)
 
     def start_a_game(self):
         self.init_board()

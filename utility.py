@@ -1,6 +1,9 @@
 from global_constans import *
+
+
 def init_board(width, height):
-    return [[0] * width for i in [0] * height]
+    return [[0] * width for _ in [0] * height]
+
 
 def display_board(board, width, height):
     for i in range(width+1):
@@ -11,6 +14,7 @@ def display_board(board, width, height):
         for j in range(width):
             print(Piece_String_Type[board[i][j]], '\t', end='')
         print(flush=True)
+
 
 def display_board_score(score, width, height):
     for i in range(width+1):
